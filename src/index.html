@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/atsu.ico">
+    <title>ATUI</title>
+</head>
+
+<body>
+    <img id="cursor-image" src="assets/astukun.gif" alt="マウスについてくるアツい君">
+    <div id="fade-overlay"></div>
+    <center>
+        <div id="app-container">
+            <div id="div1"></div>
+            <div id="device-stat">
+                <div id="clock"></div>
+                <div id="battery"></div>
+            </div>
+            <div id="message-log"></div>
+            <div id="input-area">
+                <input type="text" id="myTextBox" placeholder="メッセージを入力..." autocomplete="off">
+                <button onclick="getStringValue()"><b>＞</b></button>
+            </div>
+        </div>
+    </center>
+
+    <script type="module" src="index.ts"></script>
+</body>
+
+</html>

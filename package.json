@@ -6,8 +6,8 @@
   "dependencies": {
     "marked": "^18.0.5"
   },
-  "name": "atui",
-  "version": "3.0.0",
+  "name": "atui-remaked",
+  "version": "1.0.0",
   "description": "the original browser assistant",
   "scripts": {
     "dev": "vite dev",

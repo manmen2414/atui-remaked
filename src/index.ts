@@ -51,6 +51,7 @@ async function getStringValue() {
   if (!(inputElement instanceof HTMLInputElement))
     throw new Error("myTextBox is replaced to other element");
   const val = inputElement.value.trim();
+  if (!val) return;
   printLog(val, true);
   inputElement.value = "";
   await atui.input(val);

@@ -41,6 +41,9 @@ function printHTML(html: string) {
 document.getElementById("myTextBox")?.addEventListener("keypress", (e) => {
   if (e.key === "Enter") getStringValue();
 });
+document.getElementById("sendText")?.addEventListener("click", () => {
+  getStringValue();
+});
 
 async function getStringValue() {
   const inputElement = document.getElementById("myTextBox");

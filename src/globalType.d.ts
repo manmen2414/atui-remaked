@@ -1,5 +1,5 @@
-import { Atui } from ".";
-import { AtuiBaseFunction } from "./functions/AtuiFunction";
+import { Atui } from "./atui";
+import { AtuiBaseFunction } from "./atui/functions/AtuiFunction";
 
 declare global {
   interface Window {

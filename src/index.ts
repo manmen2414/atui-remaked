@@ -2,7 +2,7 @@ import { Atui } from "./atui";
 import * as Marked from "marked";
 import "./cursor";
 import "./specials";
-import "./atui_v3.0.0.css";
+import "./atui-remaked.css";
 
 const atui = new Atui();
 

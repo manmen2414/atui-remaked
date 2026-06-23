@@ -13,7 +13,7 @@ export class StudyFunction extends AtuiBaseFunction {
     resBuilder: AtuiResponseBuilder,
   ): Promise<HandlerResult> {
     const content = resBuilder.req.content;
-    if (content.includes("勉強")) {
+    if (/勉強|⑨|バカ|チルノ|ばか|馬鹿/.test(content)) {
       await atui._emitRes(resBuilder.md("新規タブで開きます。"));
       await atui._emitRes(
         resBuilder.page("https://note-study.studio.site/"),

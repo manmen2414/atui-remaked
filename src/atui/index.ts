@@ -12,11 +12,12 @@ export class Atui {
   constructor() {
     this._listeners = [];
     this.currentGame = null;
-
-    this.normal = new NormalFunction();
-    this.nowFunc = this.normal;
-
     this.functions = generateAllFunction();
+
+    const normal = this.functions.find((f) => f instanceof NormalFunction);
+    if (!normal) throw new Error("NormalFunction didn't generated");
+    this.normal = normal;
+    this.nowFunc = normal;
     this.sortPriority();
   }
 

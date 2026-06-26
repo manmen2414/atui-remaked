@@ -1,9 +1,11 @@
 import { Atui } from "..";
 import { AtuiResponseBuilder } from "../ResponseBuilder";
+import { escapeMarkdown } from "../util";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
+import { HelpFunction } from "./help";
 
 const TEACH_ABOUT_REGEXP =
-  /(.+)(?:について|の機能|とは|(?:って|とは)(?:何|なん|なに))/;
+  /(.+)(?:について|の機能|とは|(?:って|とは)(?:何|なに|何や|なんや|何ですか|なんですか|何やねん|なんやねん|何なん|なんなん|何だよ|なんだよ))(?:\?|？)?$/;
 
 export class FunctionsFunction extends AtuiBaseFunction {
   description: string = `Atuiが現在使える機能を表示します。\n「～について教えて」や「～の機能」と言えば詳細な説明を出してくれます。`;
@@ -22,10 +24,22 @@ export class FunctionsFunction extends AtuiBaseFunction {
     if (teachAboutRegexpResult) {
       const targetId = teachAboutRegexpResult[1];
       const targetFunc = atui.functions.find((f) => targetId === f.id);
+
+      //atuiってなんだよ
+      if (/atui/i.test(targetId)) {
+        const help = atui.functions.find((v) => v instanceof HelpFunction);
+        if (help) {
+          return help.funcHandler(
+            atui,
+            new AtuiResponseBuilder({ content: "help", id: resBuilder.req.id }),
+          );
+        }
+      }
+
       if (!targetFunc) {
         await atui._emitRes(
           resBuilder.md(
-            `ヒント: 「${targetId}」という機能は存在しません。\n機能一覧を見るには「機能」と言ってください。`,
+            `ヒント: 「${escapeMarkdown(targetId)}」という機能は存在しません。\n機能一覧を見るには「機能」と言ってください。`,
           ),
           100,
         );

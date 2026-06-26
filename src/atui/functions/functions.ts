@@ -26,7 +26,7 @@ export class FunctionsFunction extends AtuiBaseFunction {
       const targetFunc = atui.functions.find((f) => targetId === f.id);
 
       //atuiってなんだよ
-      if (/atui/i.test(targetId)) {
+      if (/^atui$/i.test(targetId)) {
         const help = atui.functions.find((v) => v instanceof HelpFunction);
         if (help) {
           return help.funcHandler(

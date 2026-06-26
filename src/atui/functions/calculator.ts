@@ -4,6 +4,7 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class CalculatorFunction extends AtuiBaseFunction {
   description: string = `極めて普通の電卓です。`;
+  longDescription: string = `「電卓」と言うことで、あの自慢のAtui電卓が起動します。\n英語名はHotCalculatorです。決してAtuiCalculatorではありません。`;
 
   constructor() {
     super("calculator");

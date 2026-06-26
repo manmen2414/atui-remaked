@@ -14,9 +14,15 @@ export class AtuiBaseFunction {
    */
   priority: number;
   /**
-   * 説明。
+   * 一覧上の説明。短く存在目的を伝える。
    */
   description: string = "<説明なし>";
+  /**
+   * 詳細説明。
+   * 起動条件や注意事項を記入する。
+   */
+  longDescription: string =
+    "<説明がないという状態はあまり好ましい設定ではない。>";
 
   /** ノーマルモード時funcHandler実行, 常に実行, 実行しない */
   runFuncHandlerTiming: "normal" | "alway" | "never";

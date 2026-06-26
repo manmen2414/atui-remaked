@@ -5,6 +5,8 @@ import { AtuiResponseBuilder } from "../ResponseBuilder";
 
 export class NormalFunction extends AtuiBaseFunction {
   description: string = `Atuiのデフォルトモードです。`;
+  longDescription: string = `他の機能を起動できます。「強制停止」を打つと強制的に戻ってこれます。`;
+
   atuiList = ["アツ", "atsu", "激アツ", "アッツ", "atu", "アッツ島"];
   constructor() {
     super("normal", -2147483648);

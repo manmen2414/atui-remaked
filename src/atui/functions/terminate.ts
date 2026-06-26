@@ -4,6 +4,7 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class TerminateFunction extends AtuiBaseFunction {
   description: string = `Atuiのアクティブな機能を中止し、通常モードに戻ります。`;
+  longDescription: string = `「強制停止」と言えば起動します。強制停止 以外の文字を含んでいると起動しません。\n起動時に現在の機能を強制的に中止して通常モードに戻ります。`;
   priority: number = 2147483647;
   runFuncHandlerTiming: "normal" | "alway" | "never" = "alway";
   constructor() {

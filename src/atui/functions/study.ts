@@ -4,6 +4,7 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class StudyFunction extends AtuiBaseFunction {
   description: string = `勉強を支援する"note-study"ページを開きます。`;
+  longDescription: string = `「勉強」と言うか、どこぞの⑨を罵倒すると開きます。`;
   constructor() {
     super("study");
   }

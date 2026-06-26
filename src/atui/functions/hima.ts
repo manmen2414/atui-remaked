@@ -4,6 +4,7 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class HimaFunction extends AtuiBaseFunction {
   description: string = `暇つぶし動画を再生します。`;
+  longDescription: string = `「暇」と言えば対応してくれます。この動画は面白いですよ。`;
   constructor() {
     super("hima");
   }

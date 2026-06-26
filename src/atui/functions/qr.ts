@@ -5,6 +5,8 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class QRFunction extends AtuiBaseFunction {
   description: string = `QRコードを生成します。`;
+  longDescription: string = `「QR」と打てば起動します。入力した文字列をQRコードに変換します。`;
+
   constructor() {
     super("qr");
   }

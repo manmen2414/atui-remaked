@@ -2,8 +2,13 @@ import { Atui } from "..";
 import { AtuiResponseBuilder } from "../ResponseBuilder";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
+const TEACH_ABOUT_REGEXP =
+  /(.+)(?:について|の機能|とは|(?:って|とは)(?:何|なん|なに))/;
+
 export class FunctionsFunction extends AtuiBaseFunction {
-  description: string = `Atuiが現在使える機能を表示します。\n`;
+  description: string = `Atuiが現在使える機能を表示します。\n「～について教えて」や「～の機能」と言えば詳細な説明を出してくれます。`;
+  longDescription: string = `この説明を見れているということは、この説明で何かを語る必要がないということです。`;
+  priority: number = 10;
   constructor() {
     super("functions");
   }
@@ -13,13 +18,41 @@ export class FunctionsFunction extends AtuiBaseFunction {
     resBuilder: AtuiResponseBuilder,
   ): Promise<HandlerResult> {
     const content = resBuilder.req.content;
-    if (content.includes("機能") || /^(\?|？)$/.test(content)) {
+    const teachAboutRegexpResult = TEACH_ABOUT_REGEXP.exec(content);
+    if (teachAboutRegexpResult) {
+      const targetId = teachAboutRegexpResult[1];
+      const targetFunc = atui.functions.find((f) => targetId === f.id);
+      if (!targetFunc) {
+        await atui._emitRes(
+          resBuilder.md(
+            `ヒント: 「${targetId}」という機能は存在しません。\n機能一覧を見るには「機能」と言ってください。`,
+          ),
+          100,
+        );
+        return { handleNext: true, changeMode: false };
+      }
+      await atui._emitRes(
+        resBuilder.md(`# 機能: ${targetFunc.id}
+
+## 説明
+${targetFunc.description}
+
+## 詳細
+${targetFunc.longDescription}
+
+## 情報
+優先度: ${targetFunc.priority} (高いほどメッセージ処理の早い段階で実行されます)
+実行タイミング: ${{ alway: "全メッセージに対して実行", normal: "通常モードまたは該当機能実行中", never: "実行しない" }[targetFunc.runFuncHandlerTiming]}
+`),
+      );
+      return { handleNext: false, changeMode: false };
+    } else if (content.includes("機能") || /^(\?|？)$/.test(content)) {
       let str = `現在は"${atui.nowFunc.id}"モードが有効化されています。\n`;
       for (const func of atui.functions) {
         str += `## ${func.id} ${func.enabled ? "" : "(無効)"}\n`;
         str += `${func.description}\n`;
       }
-      atui._emitRes(resBuilder.md(str));
+      await atui._emitRes(resBuilder.md(str));
       return { handleNext: false, changeMode: false };
     }
     return { handleNext: true, changeMode: false };

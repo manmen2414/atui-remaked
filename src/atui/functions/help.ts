@@ -5,6 +5,8 @@ import readme from "../../../README.md?raw";
 
 export class HelpFunction extends AtuiBaseFunction {
   description: string = `Atuiの説明を表示します。`;
+  longDescription: string = `「help」や「ヘルプ」でREADME.mdを表示するだけです。`;
+
   constructor() {
     super("help");
   }

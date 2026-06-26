@@ -149,6 +149,8 @@ export class AtuiShiritori {
 
 export class ShiritoriFunction extends AtuiBaseFunction {
   description: string = `Atuiにしりとり勝負を仕掛けられます。Atuiの語彙は不十分なため、知らないワードがとても多いです。`;
+  longDescription: string = `「しりとり」と言えば起動します。\n最初は「り」から始まり、しりとりが「ん」で終わる、文字が繋がっていない、もしくは運悪くAtuiが理解できない言葉を使ってしまうと終了します。\nこれに関してはマジでご武運を祈ります。`;
+
   constructor() {
     super("shiritori");
   }

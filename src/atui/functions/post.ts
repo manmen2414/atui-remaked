@@ -4,6 +4,8 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class PostFunction extends AtuiBaseFunction {
   description: string = `郵便番号と住所を相互変換します。`;
+  longDescription: string = `APIを用いています。「郵便番号」と打てば起動し、住所または郵便番号を入力することで変換を行います。`;
+
   constructor() {
     super("post");
   }

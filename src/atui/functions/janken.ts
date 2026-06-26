@@ -41,6 +41,7 @@ export class AtuiJanken {
 
 export class JankenFunction extends AtuiBaseFunction {
   description: string = `Atuiとじゃんけんしましょう！`;
+  longDescription: string = `「じゃんけん」と言えば起動します。\nグー, チョキ, パーのいずれかを使うことができますし、それ以外だと基本負けます。なぜか必勝法があります。`;
 
   constructor() {
     super("janken");

@@ -5,6 +5,7 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class FireFunction extends AtuiBaseFunction {
   description: string = `Atuiを消火・着火できるようにします。`;
+  longDescription: string = `「消火」すればatuiが消火されます。消火されるとどうなるかはあなたの目でお確かめください。「着火」すれば元に戻ります。`;
 
   samuiList = ["サム", "samu", "激サム", "サッム", "cold", "サムイ島"];
   constructor() {
@@ -18,7 +19,7 @@ export class FireFunction extends AtuiBaseFunction {
     resBuilder: AtuiResponseBuilder,
   ): Promise<HandlerResult> {
     const content = resBuilder.req.content;
-    if (content.includes("消火")) {
+    if (/消火|鎮火/.test(content)) {
       atui._emitRes(resBuilder.md("えっ"));
       return { handleNext: false, changeMode: true };
     }

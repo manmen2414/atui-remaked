@@ -5,7 +5,9 @@ import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 import { WeatherIds } from "../constants/weather";
 
 export class WeatherFunction extends AtuiBaseFunction {
-  description: string = `特定の地域を取得します。`;
+  description: string = `特定の地域の天気を取得します。`;
+  longDescription: string = `「天気」と言えば起動します。\n都道府県名や対応している地域の名前もしくはコードを入力することでその地域の天気を取得できます。\n利用可能な地域を取得するには「リスト」と聞いてください。\nすでに過ぎ去った時間など無効な情報は表示されません。`;
+
   constructor() {
     super("weather");
   }

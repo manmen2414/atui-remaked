@@ -1,10 +1,12 @@
 import { Atui } from "./atui";
 import * as Marked from "marked";
-import "./cursor";
-import "./specials";
+import "./web/cursor";
+import "./web/specials";
 import "./atui-remaked.css";
+import { webModifyToAtui } from "./web/atuiModify";
 
 const atui = new Atui();
+webModifyToAtui(atui);
 
 function printLog(text: string, isUser: boolean = false) {
   const logBox = document.getElementById("message-log");
@@ -59,9 +61,6 @@ async function getStringValue() {
 
 atui.onResponse((res) => {
   switch (res.type) {
-    case "html":
-      printHTML(res.content);
-      break;
     case "error":
       printLog(res.content + "\n(errored) ");
       break;
@@ -81,6 +80,15 @@ atui.onResponse((res) => {
       open(res.url, target, features);
       break;
     case "blank":
+      break;
+    case "custom":
+      if (res.customId === "web_html") {
+        if (!Object.hasOwn(res.content, "authentication")) break;
+        if (!Object.hasOwn(res.content, "html")) break;
+        if (res.content.authentication !== window) break;
+        if (typeof res.content.html !== "string") break;
+        printHTML(res.content.html);
+      }
       break;
   }
 });

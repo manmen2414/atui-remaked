@@ -1,5 +1,6 @@
 import {
   AtuiBlankResponse,
+  AtuiCustomResponse,
   AtuiErrorResponse,
   AtuiMarkdownResponse,
   AtuiOpenPageResponse,
@@ -79,5 +80,21 @@ export class AtuiResponseBuilder {
       ...this._baseResponse(),
     };
     return this._baseFuncs(obj);
+  }
+  custom(customId: string, content: any) {
+    const obj: AtuiCustomResponse = {
+      type: "custom",
+      customId,
+      content,
+      serialiseable: false,
+      ...this._baseResponse(),
+    };
+    return {
+      ...this._baseFuncs(obj),
+      serialiseable() {
+        this.res.serialiseable = true;
+        return this;
+      },
+    };
   }
 }

@@ -11,7 +11,10 @@ export type AtuiSafeResponse =
   | AtuiErrorResponse
   | AtuiBlankResponse;
 
-export type AtuiResponse = AtuiSafeResponse | AtuiOpenPageResponse;
+export type AtuiResponse =
+  | AtuiSafeResponse
+  | AtuiOpenPageResponse
+  | AtuiCustomResponse;
 
 export interface AtuiBaseResponse {
   type: string;
@@ -38,6 +41,13 @@ export interface AtuiOpenPageResponse extends AtuiBaseResponse {
 }
 export interface AtuiBlankResponse extends AtuiBaseResponse {
   type: "blank";
+}
+export interface AtuiCustomResponse extends AtuiBaseResponse {
+  type: "custom";
+  /** contentをシリアライズできる場合はtrueにするとよい。 */
+  serialiseable: boolean;
+  customId: string;
+  content: any;
 }
 
 export interface AtuiRequest {

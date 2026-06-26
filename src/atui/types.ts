@@ -11,10 +11,7 @@ export type AtuiSafeResponse =
   | AtuiErrorResponse
   | AtuiBlankResponse;
 
-export type AtuiResponse =
-  | AtuiSafeResponse
-  | AtuiHTMLResponse
-  | AtuiOpenPageResponse;
+export type AtuiResponse = AtuiSafeResponse | AtuiOpenPageResponse;
 
 export interface AtuiBaseResponse {
   type: string;
@@ -24,10 +21,6 @@ export interface AtuiBaseResponse {
 }
 export interface AtuiMarkdownResponse extends AtuiBaseResponse {
   type: "md";
-  content: string;
-}
-export interface AtuiHTMLResponse extends AtuiBaseResponse {
-  type: "html";
   content: string;
 }
 export interface AtuiErrorResponse extends AtuiBaseResponse {

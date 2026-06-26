@@ -1,7 +1,6 @@
 import {
   AtuiBlankResponse,
   AtuiErrorResponse,
-  AtuiHTMLResponse,
   AtuiMarkdownResponse,
   AtuiOpenPageResponse,
   AtuiRequest,
@@ -32,14 +31,6 @@ export class AtuiResponseBuilder {
   md(content: string) {
     const obj: AtuiMarkdownResponse = {
       type: "md",
-      content,
-      ...this._baseResponse(),
-    };
-    return this._baseFuncs(obj);
-  }
-  html(content: string) {
-    const obj: AtuiHTMLResponse = {
-      type: "html",
       content,
       ...this._baseResponse(),
     };

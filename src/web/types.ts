@@ -8,3 +8,14 @@ interface BatteryManager extends EventTarget {
   readonly dischargingTime: number;
   readonly level: number;
 }
+
+import { AtuiCustomResponse } from "../atui/types";
+
+export interface AtuiHtmlResponse extends AtuiCustomResponse {
+  customId: "web_html";
+  serialiseable: false;
+  content: {
+    authentication: Window;
+    html: string;
+  };
+}

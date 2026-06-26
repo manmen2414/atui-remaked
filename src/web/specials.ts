@@ -1,4 +1,4 @@
-import { CustomNavigator } from "./types";
+import { CustomNavigator } from "../types";
 
 const cNavigator = navigator as CustomNavigator;
 

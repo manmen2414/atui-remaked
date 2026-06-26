@@ -1,8 +1,8 @@
 import { Atui } from "..";
-import { CITY_CODE_TABLE } from "../constants";
 import { AtuiResponseBuilder } from "../ResponseBuilder";
-import { escapeMarkdown } from "../util";
+import { entries, escapeMarkdown } from "../util";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
+import { WeatherIds } from "../constants/weather";
 
 export class WeatherFunction extends AtuiBaseFunction {
   description: string = `特定の地域を取得します。`;
@@ -19,7 +19,7 @@ export class WeatherFunction extends AtuiBaseFunction {
       return { handleNext: true, changeMode: false };
     atui._emitRes(
       resBuilder.md(
-        '都道府県名または地域コードを入力してください。地域コード表を表示する場合は"コード"と入力してください。',
+        '地域名を入力してください。地域リストを表示するには"リスト"と入力してください。',
       ),
     );
     return { handleNext: false, changeMode: true };
@@ -30,36 +30,51 @@ export class WeatherFunction extends AtuiBaseFunction {
     resBuilder: AtuiResponseBuilder,
   ): Promise<HandlerResult> {
     const content = resBuilder.req.content;
-    if (content.includes("コード")) {
-      await atui._emitRes(
-        resBuilder.md(
-          "地域コード表を新規タブで開きます。\n都道府県名または地域コードを入力してください。",
-        ),
-      );
-      await atui._emitRes(
-        resBuilder.page("https://weather.tsukumijima.net/primary_area.xml"),
-      );
+    if (content.includes("リスト")) {
+      let md = `https://weather.tsukumijima.net/primary_area.xml より\n`;
+
+      for (const [pref, city] of entries(WeatherIds)) {
+        md += `${pref}: `;
+        for (const cityName in city) {
+          if (!Object.hasOwn(WeatherIds, pref)) continue;
+          md += `${cityName} `;
+        }
+        md += `\n`;
+      }
+      await atui._emitRes(resBuilder.md(md));
       return { handleNext: false, changeMode: false };
     } else {
       let cityName = "";
       let cityId = "";
-      for (const [city, id] of Object.entries(CITY_CODE_TABLE)) {
-        if (
-          content.includes(city) ||
-          content.includes(id) ||
-          content.includes(city.slice(0, -1))
-        ) {
-          cityName = city;
-          cityId = id;
+      const cityNameId: [string, string][] = [];
+      const prefNameId: [string, string][] = [];
+      for (const cities of Object.values(WeatherIds)) {
+        for (const city of entries(cities)) {
+          cityNameId.push([city[0], city[1]]);
         }
       }
-      if (!cityId) {
-        await atui._emitRes(
-          resBuilder.md(
-            "都道府県が見つかりませんでした。通常モードに戻ります。",
-          ),
+
+      for (const [pref, cities] of entries(WeatherIds)) {
+        const primaryCity = Object.entries(cities).find(([_, v]) =>
+          v.endsWith("10"),
         );
-        return { handleNext: false, changeMode: true };
+        if (!primaryCity) continue;
+        prefNameId.push([pref, primaryCity[1]]);
+      }
+      //都道府県を含まないテキストをまず市として認識する
+      [cityName, cityId] = cityNameId.find(
+        ([name, id]) =>
+          new RegExp(`${name}[^都道府県]?`).test(content) ||
+          content.includes(id),
+      ) ?? ["", ""];
+      if (!cityName)
+        // 都道府県を捜索する、この際都道府県は省略できる
+        [cityName, cityId] = prefNameId.find(([name]) =>
+          content.includes(name.slice(0, -1)),
+        ) ?? ["", ""];
+      if (!cityName) {
+        atui._emitRes(resBuilder.md("対象地域が見つかりませんでした。"));
+        return { handleNext: false, changeMode: false };
       }
       const result = Promise.all([
         atui._emitRes(

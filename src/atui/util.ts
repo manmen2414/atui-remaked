@@ -14,3 +14,10 @@ export function escapeMarkdown(text: string) {
   // Markdownの特殊文字（*.[]\(\)_~`>#+-!）をすべてバックスラッシュでエスケープ
   return text.replace(/[*.\[\]()_~`>#+\-!]/g, "\\$&");
 }
+
+// オブジェクトをループする際に型チェックしてくれる
+export const entries = <T extends object = object>(
+  obj: T,
+): [keyof T, T[keyof T]][] => {
+  return Object.entries(obj) as [keyof T, T[keyof T]][];
+};

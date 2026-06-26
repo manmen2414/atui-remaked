@@ -1,9 +1,16 @@
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("pointermove", (e) => {
+  const image = document.getElementById("cursor-image");
+  if (!image) throw new Error("cursor image not found");
+
+  if (e.pointerType === "mouse") {
+    image.style.display = "block";
+  } else {
+    image.style.display = "none";
+  }
+
   let x = e.clientX - 25;
   let y = e.clientY - 15;
 
-  const image = document.getElementById("cursor-image");
-  if (!image) throw new Error("cursor image not found");
   image.style.transform = `translate(${x}px, ${y}px)`;
 });
 

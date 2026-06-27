@@ -2,7 +2,7 @@ import { AtuiBaseFunction } from "./functions/AtuiFunction";
 import { generateAllFunction, NormalFunction } from "./functions";
 import { AtuiResponseBuilder } from "./ResponseBuilder";
 import { AtuiRequest, AtuiResponse, AtuiRunnableGame } from "./types";
-import { wait } from "./util";
+import { wait } from "./utils";
 
 export class Atui {
   nowFunc: AtuiBaseFunction;

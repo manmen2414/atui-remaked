@@ -1,4 +1,4 @@
-import { randomSelect } from "../util";
+import { randomSelect } from "../utils";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 import { Atui } from "..";
 import { AtuiResponseBuilder } from "../ResponseBuilder";

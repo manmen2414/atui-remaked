@@ -1,6 +1,6 @@
 import { Atui } from "..";
 import { AtuiResponseBuilder } from "../ResponseBuilder";
-import { entries, escapeMarkdown } from "../util";
+import { entries, escapeMarkdown } from "../utils";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 import { WeatherIds } from "../constants/weather";
 

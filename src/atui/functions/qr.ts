@@ -1,6 +1,6 @@
 import { Atui } from "..";
 import { AtuiResponseBuilder } from "../ResponseBuilder";
-import { escapeMarkdown } from "../util";
+import { escapeMarkdown } from "../utils";
 import { AtuiBaseFunction, HandlerResult } from "./AtuiFunction";
 
 export class QRFunction extends AtuiBaseFunction {

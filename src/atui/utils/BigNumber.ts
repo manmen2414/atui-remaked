@@ -35,7 +35,7 @@ export class BigNumber {
     const isMinus = str.startsWith("-");
     const abs = isMinus ? str.slice(1) : str;
     let intStr = abs.slice(0, -this.pow10) || "0";
-    let decimalStr = abs.slice(-this.pow10);
+    let decimalStr = abs.slice(-this.pow10).padStart(this.pow10, "0");
     return `${isMinus ? "-" : ""}${intStr}.${decimalStr}`;
   }
   clone() {

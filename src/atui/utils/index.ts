@@ -21,3 +21,20 @@ export const entries = <T extends object = object>(
 ): [keyof T, T[keyof T]][] => {
   return Object.entries(obj) as [keyof T, T[keyof T]][];
 };
+
+// regExpを文字列化
+export function toStrRegExp(reg: RegExp) {
+  return reg.toString().slice(1, -1);
+}
+// toStrRegExpするが非マークグループ化する
+export function toStrRegExpGrouped(reg: RegExp) {
+  return "(?:" + reg.toString().slice(1, -1) + ")";
+}
+// 引数のRegExpを満たす任意のRegExpを生成する
+export function orJoinRegExp(...reg: RegExp[]) {
+  return new RegExp(reg.map(toStrRegExpGrouped).join("|"));
+}
+// ただjoinする
+export function joinRegExp(...reg: RegExp[]) {
+  return new RegExp(reg.map(toStrRegExpGrouped).join(""));
+}

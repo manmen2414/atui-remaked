@@ -26,6 +26,8 @@ import { FunctionsFunction } from "./functions";
 export { FunctionsFunction };
 import { TerminateFunction } from "./terminate";
 export { TerminateFunction };
+import { GekiatuCalculateFunction } from "./gekiatu-calculate";
+export { GekiatuCalculateFunction };
 
 export function generateAllFunction(): AtuiBaseFunction[] {
   return [
@@ -42,5 +44,6 @@ export function generateAllFunction(): AtuiBaseFunction[] {
     new StudyFunction(),
     new FunctionsFunction(),
     new TerminateFunction(),
+    new GekiatuCalculateFunction(),
   ];
 }

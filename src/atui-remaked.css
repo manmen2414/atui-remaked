@@ -261,9 +261,6 @@ button:hover {
   transition: transform 0.1s ease-out;
 }
 
-.info-card a:hover {
-}
-
 #message-log {
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
